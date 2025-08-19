@@ -57,6 +57,11 @@ require_once TWO_FACTOR_DIR . 'class-cciwa-two-factor-admin.php';
  */
 require_once TWO_FACTOR_DIR . 'class-cciwa-two-factor-memberpress.php';
 
+/**
+ * Include the CCIWA Frontend setup.
+ */
+require_once TWO_FACTOR_DIR . 'class-cciwa-two-factor-frontend.php';
+
 $two_factor_compat = new Two_Factor_Compat();
 
 Two_Factor_Core::add_hooks( $two_factor_compat );
@@ -68,6 +73,9 @@ if ( is_admin() ) {
 
 // Initialize MemberPress integration.
 CCIWA_Two_Factor_MemberPress::init();
+
+// Initialize Frontend setup.
+CCIWA_Two_Factor_Frontend::init();
 
 // Delete our options and user meta during uninstall.
 register_uninstall_hook( __FILE__, array( Two_Factor_Core::class, 'uninstall' ) );
