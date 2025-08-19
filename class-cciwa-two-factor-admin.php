@@ -329,7 +329,8 @@ class CCIWA_Two_Factor_Admin {
 	 * @param WP_User $user User object.
 	 */
 	public static function redirect_to_2fa_setup( $user ) {
-		$setup_url = admin_url( 'profile.php#two-factor-options' );
+		// Use frontend setup URL instead of admin
+		$setup_url = CCIWA_Two_Factor_Frontend::get_setup_url();
 		
 		// Add notice to user meta
 		$notices = get_user_meta( $user->ID, '_cciwa_2fa_notices', true );
