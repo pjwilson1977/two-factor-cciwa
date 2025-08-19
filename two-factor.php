@@ -8,9 +8,9 @@
  * @license     GPL-2.0-or-later
  *
  * @wordpress-plugin
- * Plugin Name:       Two Factor
+ * Plugin Name:       CCIWA Two-Factor Authentication
  * Plugin URI:        https://wordpress.org/plugins/two-factor/
- * Description:       Enable Two-Factor Authentication using time-based one-time passwords, Universal 2nd Factor (FIDO U2F, YubiKey), email, and backup verification codes.
+ * Description:       Enable Two-Factor Authentication using time-based one-time passwords (Authentication App), email, and recovery codes for CCIWA websites with enhanced security and MemberPress integration.
  * Requires at least: 6.7
  * Version:           0.14.0
  * Requires PHP:      7.2
@@ -47,9 +47,27 @@ require_once TWO_FACTOR_DIR . 'class-two-factor-core.php';
  */
 require_once TWO_FACTOR_DIR . 'class-two-factor-compat.php';
 
+/**
+ * Include the CCIWA admin settings.
+ */
+require_once TWO_FACTOR_DIR . 'class-cciwa-two-factor-admin.php';
+
+/**
+ * Include the CCIWA MemberPress integration.
+ */
+require_once TWO_FACTOR_DIR . 'class-cciwa-two-factor-memberpress.php';
+
 $two_factor_compat = new Two_Factor_Compat();
 
 Two_Factor_Core::add_hooks( $two_factor_compat );
+
+// Initialize CCIWA admin settings.
+if ( is_admin() ) {
+	CCIWA_Two_Factor_Admin::init();
+}
+
+// Initialize MemberPress integration.
+CCIWA_Two_Factor_MemberPress::init();
 
 // Delete our options and user meta during uninstall.
 register_uninstall_hook( __FILE__, array( Two_Factor_Core::class, 'uninstall' ) );
