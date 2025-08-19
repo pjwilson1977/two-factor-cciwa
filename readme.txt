@@ -1,22 +1,32 @@
-=== Two-Factor ===
+=== CCIWA Two-Factor Authentication ===
 Contributors: georgestephanis, valendesigns, stevenkword, extendwings, sgrant, aaroncampbell, johnbillion, stevegrunwell, netweb, kasparsd, alihusnainarshad, passoniate
-Tags:         2fa, mfa, totp, authentication, security
+Tags:         2fa, mfa, totp, authentication, security, cciwa, memberpress
 Tested up to: 6.8
 Stable tag:   0.14.0
 License:      GPL-2.0-or-later
 License URI:  https://spdx.org/licenses/GPL-2.0-or-later.html
 
-Enable Two-Factor Authentication (2FA) using time-based one-time passwords (TOTP), Universal 2nd Factor (U2F), email, and backup verification codes.
+CCIWA customized Two-Factor Authentication with simplified setup, enhanced security, and MemberPress integration.
 
 == Description ==
 
-Use the "Two-Factor Options" section under "Users" → "Your Profile" to enable and configure one or multiple two-factor authentication providers for your account:
+CCIWA Two-Factor Authentication provides enhanced security for WordPress websites with a focus on user-friendly setup and seamless MemberPress integration.
 
-- Email codes
-- Time Based One-Time Passwords (TOTP)
-- FIDO Universal 2nd Factor (U2F)
-- Backup Codes
-- Dummy Method (only for testing purposes)
+**Key Features:**
+
+- **Authentication App (TOTP)**: Secure time-based codes using apps like Google Authenticator, Authy, or similar
+- **Recovery Codes**: One-time backup codes for emergency access
+- **Email Verification**: Backup method using email-delivered codes
+- **Admin Controls**: Centralized settings to manage available authentication methods
+- **2FA Enforcement**: Option to require all users to set up two-factor authentication
+- **MemberPress Integration**: Seamless 2FA management from MemberPress account pages
+- **Simplified Interface**: Streamlined setup focusing on recommended secure methods
+
+**Admin Management:**
+Navigate to "Settings" → "Two-Factor Auth" to configure available authentication methods and enforcement settings.
+
+**User Setup:**
+Users can configure their two-factor authentication from "Users" → "Your Profile" or through their MemberPress account page when available.
 
 For more history, see [this post](https://georgestephanis.wordpress.com/2013/08/14/two-cents-on-two-factor/).
 

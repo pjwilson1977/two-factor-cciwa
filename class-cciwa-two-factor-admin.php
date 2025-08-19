@@ -194,6 +194,12 @@ class CCIWA_Two_Factor_Admin {
 		unset( $filtered_providers['Two_Factor_Dummy'] );
 		unset( $filtered_providers['Two_Factor_FIDO_U2F'] );
 
+		// Ensure we have at least one provider available (fallback to email if nothing else)
+		if ( empty( $filtered_providers ) ) {
+			$filtered_providers['Two_Factor_Email'] = $providers['Two_Factor_Email'];
+			$filtered_providers['Two_Factor_Backup_Codes'] = $providers['Two_Factor_Backup_Codes'];
+		}
+
 		return $filtered_providers;
 	}
 
@@ -205,11 +211,23 @@ class CCIWA_Two_Factor_Admin {
 	 * @return string The provider to use.
 	 */
 	public static function set_default_provider( $provider, $user_id ) {
-		// If no provider is currently selected and TOTP is available, use it as default
+		// If no provider is currently selected, try to set a sensible default
 		if ( empty( $provider ) ) {
 			$available_providers = Two_Factor_Core::get_available_providers_for_user( $user_id );
+			
+			// Prefer TOTP (Authentication App) as it's the most secure
 			if ( isset( $available_providers['Two_Factor_Totp'] ) ) {
 				return 'Two_Factor_Totp';
+			}
+			
+			// Fall back to email if TOTP is not available
+			if ( isset( $available_providers['Two_Factor_Email'] ) ) {
+				return 'Two_Factor_Email';
+			}
+			
+			// Last resort: backup codes (though they shouldn't be the primary method)
+			if ( isset( $available_providers['Two_Factor_Backup_Codes'] ) ) {
+				return 'Two_Factor_Backup_Codes';
 			}
 		}
 		
